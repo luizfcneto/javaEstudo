@@ -1,0 +1,13 @@
+Importante Saber:
+
+Comandos:
+
+-Compilando para JVM (gera o "NomeDoArquivo".class)
+	>	javac "NomeDoArquivo".java
+
+-Executando o arquivo
+	>	java "NomeDoArquivo"
+
+
+Classes:
+	-Classes no java começam com letras maiusculas (CamelCase) Java é case Sensitive
