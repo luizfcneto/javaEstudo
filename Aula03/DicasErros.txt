@@ -1,0 +1,12 @@
+Tipos de Erros:
+
+	>Erros de Sintaxe
+		-Erros especificos de sintaxe da linguagem
+
+	>Erros de Semântica
+		-Erros de lógica do programa 
+
+	>Erros em Tempo de Execução
+		-Erros que ocorrem durante a execução do programa 
+		Exemplo:	Classe principal sem main
+					Divisão por zero(0) -Pode ser tratado
