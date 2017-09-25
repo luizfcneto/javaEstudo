@@ -1,0 +1,48 @@
+
+Variável
+	> Área de memória associada a um nome, que pode armazenar valores de um determinado tipo. 
+
+Declaração:
+	- <tipo> <nome da variável>;
+	- <tipo> <nome da variável> = <valor>;
+
+Convenção de Nomenclatura:
+	- a-z A-z _ & (primeira letra) o '&' e '_' não são usados com frequencia
+	- a-z A-z _ & 0-9 (após a primeira letra) o '&' e '_' não são usados com frequencia
+	- Case sensitive
+	
+	- Não pode ser nenhuma das palavras reservadas
+
+Palavras já utilizadas (reservadas) pela linguagem java:
+abstract					instanceof
+assert						int
+boolean						interface
+break						long
+byte						native
+case						new
+catch						package
+char						private
+class						protected
+const						public
+continue					return
+default						short
+do							static
+double						strictfp
+else						super
+enum						switch
+extends						synchronized
+final						this
+finally						throw	
+float						throws
+for							transient
+goto						try
+if							void	
+implements					volatile	
+import						while
+
+Tipos Primitivos de variáveis
+	> int		-> inteiros	
+	> float		-> numeros com ponto flutuante
+	> double 	-> numeros com ponto flutuante
+	> char		-> caracteres
+	> boolean	-> true/false
