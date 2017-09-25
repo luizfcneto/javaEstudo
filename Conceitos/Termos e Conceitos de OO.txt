@@ -1,0 +1,36 @@
+Termos e Conceitos de Orientação a Objetos (OO)
+
+Vantagens OO:
+	> Reuso de Código
+	> Reflete o mundo real
+	> Facilita manutenção do código
+
+Conceitos:
+
+	> Classes
+		- É a descrição de um grupo de objetos (semelhante a estrutura em C)
+		
+		>> Atributos 
+			- variáveis que pertencem a determinada classe
+	
+		>> Métodos
+			- Comportamentos que a classe pode fazer (equivalente a funções em C)
+
+	> Objetos
+		- Instância da classe (dar vida a classe)
+		Exemplo em C:
+
+		int *pidade, idade;
+		pidade = &idade; //pidade vai apontar para o endereço da variavel idade, idade seria uma instancia da classe pidade
+	
+	> Heranças
+		- Permite a reutilização da estrutura e do comportamento da classe
+
+	> Polimorfismo
+		- variáveis que possuem "mais de um tipo" para realizar o mesmo método (função)
+	
+	> Pacotes 
+		- Uma forma de organizar classes
+		Conveção:
+			dominio + projeto + pasta
+			Exemplo: com.luizfcneto.javaEstudo.aula0X
