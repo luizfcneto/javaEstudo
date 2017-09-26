@@ -41,8 +41,61 @@ implements					volatile
 import						while
 
 Tipos Primitivos de variáveis
-	> int		-> inteiros	
-	> float		-> numeros com ponto flutuante
-	> double 	-> numeros com ponto flutuante
-	> char		-> caracteres
-	> boolean	-> true/false
+	-> inteiros	
+		> byte		tamanho: 8 bits		2^8 
+		> short		tamanho: 16 bits	2^16 
+		> int		tamanho: 32 bits	2^32
+		> long		tamanho: 64 bits 	2^64
+
+	>> Convertendo bases de numeros inteiros:
+		>>> Exemplo:
+			int decimalVariavel = 26;
+			int hexadecimalVariavel = 0x1a;
+			int	octalVariavel = 032;
+			int	binarioVariavel = 0b11010; // a partir do JDK 7
+
+	
+	-> numeros com ponto flutuante
+		> float		tamanho: 32 bits
+			>>Exemplo: float saldo = 100.30f;	//f=literal, necessário		
+			
+		> double	tamanho: 64 bits		*mais utilizado
+			>>Exemplo: double saldo = 100.30;
+		
+	
+		>>Colocando em notação cientifica:
+			Exemplo:	
+			double var1 = 1.34e2 // isso equivale a 1.34*10^2 = 134
+	
+
+	-> caracteres
+		> char		tamanho: 8 bits
+		Exemplos caracteres tabela ASCII:
+			char o = 111;
+			char i = 105;
+			System.out.println("" + o + i );
+
+		Sequencia de Escape:
+		> \t		-> tab
+		> \b		-> backspace
+		> \n		-> nova linha
+		> \r		-> retorno de carro
+		> \f		-> avanço de pagina
+		> \'		-> aspas simples
+		> \"		-> aspas duplas
+		> \\		-> barra invertida
+		> \ddd	-> constante octal
+		> \uxxx	-> constante hexadecimal
+			
+		Exemplos caracteres tabela unicode:
+			char interrogacao = 0x00E1;
+			System.out.println("" + o + i + interrogacao);		
+
+	-> booleanos
+		>boolean 	true ou false
+
+
+
+
+
+
