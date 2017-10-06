@@ -1,0 +1,115 @@
+			>>	THREADS  <<
+
+Conceitos:
+	Multitarefas: Processos e Threads
+
+			> Processo é um programa que está sendo executado
+
+			> Thread é a menor unidade de código que pode ser executada
+
+				> Ou seja, permite ao programa executar 2 ou mais tarefas ao mesmo tempo.
+
+			Thread sao codigos que estão sendo executados dentro de um programa (dentro do processo)
+
+			Exemplo:
+
+				> Um editor de texto pode formatar um texto (ao clicar num botao), e ao mesmo tempo pode enviar o texto para impressão
+
+
+	Vantagens em usar Threads:
+
+		> Programas mais eficientes
+
+	Estrutura:
+
+> new Thread() -> New [Criação da instancia] --
+> start() -> Runnable [pronta pra execução] --
+> run() -> Running [em Execução] --
+
+ou
+> yield() -> Runnable [pronta pra execução] //volta pro estado Runnable
+
+ou
+> sleep()/wait()/suspend() -> Waiting [Estado de espera]
+> notify()/notifyAll()/resume() -> Runnable [quando a thread "acorda/volta a atividade"]
+
+ou
+> 		-> Dead [thread terminada]
+
+
+	> Criando uma Thread
+
+		> Extender a classe Thread
+
+
+		> Implementar a interface Runnable
+			OBS: não precisa do método start(), por outro lado voce tem que criar uma variavel instanciada da Classe Thread para ter que usar o metodo start();
+			Método run() obrigatório
+
+
+	Métodos: start, run e sleep
+
+	> start() -> inicia o método run
+
+	> run() -> executa a tarefa da thread
+
+	> sleep() -> coloca a thread para dormir por X milissegundos
+
+
+	> Qual Abordagem é melhor?
+
+		> Quando fazemos extends da Classe Thread, o único método que precisa ser sobreposto é o run.
+
+		> Quando implementamos a Classe Runnable, também precisamos o método run
+
+	> Com a classe Runnable, podemos extender qualquer outra classe, ponto positivo!
+
+	> Se não for sobrepor qualquer outro método da Classe Thread, pode ser melhor usar a Classe Runnable  
+
+
+> Sincronização é o ato de coordenar as atividades de 2 ou mais threads.
+
+> Motivo: quando 2 ou mais threads precisam acessar um recurso compartilhado, ou somente 1 thread pode acessar o recurso por vez.
+
+Sincronizar a thread vai garantir que nenhuma thread irá acessar a este recurso no mesmo tempo.
+
+> No java usamos a palavra chave synchronized em métodos(assinatura ) ou em um bloco de código
+
+
+> Uma thread A está sendo executada dentro de um método sincronizado e precisa de acesso a um recurso R que no momento está indisponível
+
+> Se a thread A ficar esperando por R, irá bloquear o objetivo impedindo que outras threads acessem o mesmo. (Deadlock)
+
+> Nesse caso a melhor solução para não causar problemas é liberar temporariamente o controle do objeto permitindo que outra thread seja executada.
+
+> wait() -> bloqueia a execução da thread temporariamente, ou seja, coloca a thread em modo de espera
+
+> a thread fica em modo de espera até que seja notificada
+
+> notify() -> notifica uma thread que estava esperando, ou seja, retorna a execução da thread
+
+> notifyAll() -> notifica todas as threads, e a que tem prioridade mais alta ganha acesso ao objeto
+
+
+> Pode ser útil suspender uma Thread. Por Exemplo, uma thread que mostra a hora do dia. Podemos suspender posteriormente resumir a execução.
+
+> Até o java2 existiam os métodos suspend, resumo e stop
+
+> O método suspend foi substituido no Java 2 por poder causar problema de deadLock
+
+> E como resumo não funciona sem o suspend, também foi removido
+
+> O método stop também foi substituido no Java2 (deve-se usar o método interrupt no lugar)
+
+> Mas ainda podemos adicionar esses comportamentos na nossa Thread de maneira mais segura.
+
+> suspend() -> suspende temporariamente a execução da Thread
+
+> resume() -> resume a execução da Thread
+
+> stop() -> termina a execução da Thread
+
+> Deadlock
+	> É quando uma thread1 depende de um recurso que está ocupado por uma outra thread2, nesse caso a thread1 é forçada a parar até que a thread2 que está ocupando o recurso pare de usa-lo.
+
+> Criar um semaforo (sinal de transito) usando Threads. O semáforo deve ficar verde por x segundos, depois brevemente amarelo seguido de y segundos na cor vermelha.
