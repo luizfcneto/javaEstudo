@@ -1,0 +1,24 @@
+Arrays:
+	
+	> Estrutura de dados mais simples existente na maioria das linguagens de programação.
+
+	> Lista ordenada de dados.
+
+Problema:
+	> Armazenar a temperatura média diária por 1 ano;
+
+	Não declaramos uma variavel para cada dia do ano...
+		double tempDia0001 = 30;
+		double tempDia0002 = 31.2;
+		double tempDia0003 = 32.1;
+		double tempDia0004 = 40;
+		XXXXXXXXXXXXXXXXXXXXXXXX
+
+	Declaramos um vetor (Array) que irá alocar na memoria um espaço para uma determinada quantidade de variaveis que, obrigatoriamente deve ser especificada.
+
+	Exemplo (sintaxe):
+
+	tipo+[]  nomeDaVariavel = new tipo+ [ quantidade ]
+	double[] temperaturas = new double[ qtd ]; 
+
+	new = instanciando objeto da classe "tipo";
