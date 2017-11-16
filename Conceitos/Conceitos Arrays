@@ -22,3 +22,21 @@ Problema:
 	double[] temperaturas = new double[ qtd ]; 
 
 	new = instanciando objeto da classe "tipo";
+
+
+	Outra forma de declaração de vetores (nesse caso matriz):
+  	double[][] notasAlunos =  {{7,8,9,10},{6,7,4,5}};
+ 
+ Para matrizes de outras dimensoes:
+ 	- 3 Dimensoes:
+ 		declaração:
+ 		double[][][] vetorTridimenscional = new double[3][3][3];
+ 	
+ 	- Multidimensional Irregular:
+ 		Exemplo:
+ 			int[][] vetorIrregular = new int[3][];
+
+ 			vetorIrregular[0] = new int[1];
+ 			vetorIrregular[1] = new int[2];
+ 			vetorIrregular[1] = new int[3];
+
