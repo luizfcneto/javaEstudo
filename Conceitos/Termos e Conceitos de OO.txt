@@ -14,7 +14,7 @@ Conceitos:
 			- variáveis que pertencem a determinada classe
 	
 		>> Métodos
-			- Comportamentos que a classe pode fazer (equivalente a funções em C)
+			- Comportamentos(funções) que a classe pode fazer (equivalente a funções em C)
 
 	> Objetos
 		- Instância da classe (dar vida a classe)
@@ -34,3 +34,36 @@ Conceitos:
 		Conveção:
 			dominio + projeto + pasta
 			Exemplo: com.luizfcneto.javaEstudo.aula0X
+
+
+Forma Geral de uma Classe:
+
+public class NomeDaClasse {
+	
+	//Variaveis de instancia - Atributos da Classe
+
+	int var1;
+	int var2;
+	int var3;
+
+	//declaração de métodos
+	void metodo1 (int parametros) {
+		
+		//Bloco de instrução do método
+
+	}
+
+	void metodo2 (int parametros) {
+		
+		//Bloco de instrução do método
+
+	}
+
+	void metodo3 (int parametros) {
+		
+		//Bloco de instrução do método
+
+	}
+
+}
+
