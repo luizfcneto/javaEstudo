@@ -35,15 +35,23 @@ public class Aluno {
 	int registration;
 	double[][] grades = new double[subjects.length][2];
 	boolean[] approved = new boolean[subjects.length];
+	Scanner scan = new Scanner(System.in);
 	
 	public Aluno() {
-		Scanner scan = new Scanner(System.in);
+		
 		System.out.println("Informe o Nome do Aluno:");
 		this.name = scan.nextLine();
 		
 		System.out.println("Informe o curso em que o Aluno está realizando:");
 		this.course = scan.nextLine();
 		
+		System.out.println("Informe a matricula do Aluno: ");
+		try {
+			this.registration = Integer.parseInt(scan.nextLine());
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+			
 		System.out.println("Informe o nome das 3 disciplinas do aluno e suas duas notas em cada prova em cada disciplina: ");
 	
 		for(int counterI = 0; counterI < subjects.length; counterI++) {
@@ -54,14 +62,10 @@ public class Aluno {
 			for(int counterJ = 0; counterJ < grades[counterI].length; counterJ++) {
 				System.out.println("Nota["+ (counterJ+1) +"] :");
 				this.grades[counterI][counterJ] = scan.nextDouble();
-				
-				scan.nextLine();
 			}
-			
+			scan.nextLine();
 		}
 		
-		System.out.println("Informe a matricula do Aluno: ");
-		this.registration = scan.nextInt();
 		
 	}
 	
@@ -87,18 +91,22 @@ public class Aluno {
 		System.out.println("Matricula: "+ this.registration);
 		System.out.println("Curso: "+ this.course);
 		
-		for (; counterSubjects < subjects.length; counterSubjects++) {
+		isApproved();
+		
+		for (counterSubjects = 0; counterSubjects < subjects.length; counterSubjects++) {
 			
 			System.out.println("Disciplina: " + subjects[counterSubjects]);
 			
-			for (; counterGrades < grades[counterSubjects].length; counterGrades++) {
+			for (counterGrades = 0; counterGrades < grades[counterSubjects].length; counterGrades++) {
 				System.out.println("Nota[" + (counterGrades+1) + "]: " + grades[counterSubjects][counterGrades] );
 				
 			}
 			
-			System.out.println("Situação: Aprovado? " + approved[counterSubjects] );
+			System.out.println("Situação: Aprovado? " + approved[counterSubjects] +"\n" );
 			
 		}
+		
+		
 	}
 	
 	
