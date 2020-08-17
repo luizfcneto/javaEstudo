@@ -1,0 +1,28 @@
+Algumas especificações do Java EE:
+As APIs a seguir são as principais dentre as disponibilizadas pelo Java EE:
+
+	- JavaServer Pages ( JSP ), Java Servlets, Java Server Faces ( JSF ) 
+		- Todas as especificações acima são focadas para trabalhar na WEB.
+
+	- Enterprise Javabeans Components ( EJB ) e Java Persistence API ( JPA ):
+		- Objetos distribuídos, clusters, acesso remoto a objetos e etc
+
+	- Java API for XML Web Services ( JAX-WS ), Java API for XML Binding ( JAX-B )
+		- Trabalhar com arquivos XML e webservices 
+
+	- Java Autenthication and Authorization Service ( JAAS )
+		- API padrão do Java para segurança
+
+	- Java Transacion API ( JTA )
+		- Controle de transação no contêiner
+
+	- Java Message Service ( JMS ) 
+		- Troca de mensagens assíncronas
+
+	- Java Naming a Directory Interface ( JNDI ) 
+		- Espaço de nomes e objetos 
+
+	- Java Management Extensions ( JMX )
+		- Administração da sua aplicação e estatísticas sobre a mesma.
+
+	

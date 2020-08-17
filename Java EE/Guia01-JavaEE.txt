@@ -1,0 +1,20 @@
+Java EE -> Java Enterprise Edition, uma versão do Java que vem com algumas soluções para possíveis problemas de Sistemas que possuem muitos requisitos não-funcionais, exemplo: 
+	- Persistencia em Banco de Dados;
+	- Transação;
+	- Acesso Remoto;
+	- Web Services;
+	- Gerenciamento de Threads;
+	- Gerenciamento de Conexões HTTP;
+	- Cache de Objetos;
+	- Gerenciamento de Sessão Web;
+	- Balanceamento de Carga;
+	
+O Java EE traz uma série de especificações bem detalhadas, dando receita de como deve ser implementado um software que faz cada um desses serviços acima e mais, para retirar da responsabilidade de quem desenvolve os requisitos funcionais ( regras de negócio da aplicação ) também ter que desenvolver os não funcionais, dessa forma reduzindo a carga de trabalho e apenas focando em configurar o ambiente de desenvolvimento com essas especificações de configuração, podendo até serem reutilizadas em outros projetos. 
+
+Nesse guia, iremos focar no desenvolvimento de ambiente Web utilizando Java EE. Além disso, estudaremos conceitos muito importantes, para depois conceituar termos fundamentais como "servidor de aplicação" e "containers".
+
+O objetivo principal dessas especificações do Java EE é justamente reduzir o tempo de implementação do sistema, utilizando os serviços listados devidamente configurados. Alem disso, existem soluções pagas que ja fornecem configuração de infraestrutura e também open source, ambas de boa qualidade.
+
+Supondo que você ja possua uma aplicação e que deseje trocar essa implementação atual por uma que seja mais rápida em determinados pontos e que use menos memória. Fazendo essa mudança de implementação, você não precisará alterar o seu software. O que muda é a implementação da especificação.
+
+

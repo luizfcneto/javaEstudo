@@ -1,0 +1,29 @@
+Spring MVC:
+	Sabendo o que é MVC ( Model View Controller ), porque precisamos de frameworks MVC?
+		O objetivo de utilizar frameworks MVC é diminuir o impacto da API e faxer com que passemos a nos preocupar exclusivamente com a lógica das regras de negócio, que é o código que possui maior valor para nossa aplicação.
+
+Exemplos:
+	Imagine se tivessemos que lidar diretamente com o protocolo HTTP a todo momento que tivermos que desenvolver qualquer funcionalidade. Nesse ponto, os containers e a API de "Servlets" encapsulam o protocolo para que não precisemos lidar diretamente com ele, mas mesmo assim precisariamos fazer muito trabalho repetitivo para desenvolver nossa logica. 
+	
+	- Conversão de Data. O protocolo HTTP sempre interpreta tudo como texto, temos que transformar essa Data em um objeto do tipo Calendar. Mas sempre que precisamos de uma data temos essa mesma conversão usando "SimpleDateFormat"
+
+	- Para gravarmos um objeto do tipo "Contato", precisamos pegar na API de Servlets parâmetro por parâmetro para montar um objeto do tipo "Contato", invocando os setters adequados.
+
+Seria muito mais fácil que a nossa lógica recebesse o objeto do tipo Contato já devidamente populado com dados que vieram da requisição. Nosso trabalho seria apenas invocar o ContatoDao passando Contato para ser adicionado.
+	
+
+História:
+	Logo percebemos que o trabalho com Servlets e JSPs puros não era tão produtivo e organizado. A própria Sun começou a fomentar o uso do padrão MVC e de patterns como Front Controller.  Entretanto era muito comum cada empresa implementar seus próprios padrões criando soluções baseadas em "mini-frameworks caseiros". Só que isso gerou um problema, porquê existia muito retrabalho ter que readequar esses padrões para cada projeto ( não era tão simples reutiliza-lo ). 
+
+O Struts foi um dos primeiros frameworks MVC com a ideia de se criar um controlador reutilizável entre projetos. Com o objetivo de tornar mais simples a criação de aplicações Web com Java disponibilizando uma série de funcionalidades já prontas. Se popularizou muito na época de lançamento ( anos 2000 ).
+
+No entanto, hoje é visto como um framework que demanda muito trabalho, justamente por ser antigo, quando muitas das facilidades do Java ainda não existiam.
+
+Um dos framworks no mercado é o Spring MVC. Spring é um framework que inicialmente não foi criado para desenvolvimento Web. Na essência, o Spring é um container leve que visa fornecer serviços para a sua aplicação como: Gerenciamento de objetos ou Transação. Mas com o tempo foi se atualizando e  modernizando e por conta disso começou a utilizar recursos atuais da linguagem além de usar todo poder do container Spring. 
+
+Configurando o Spring MVC:
+	O primeiro passo que precisamos dar é ter o Spring MVC para adicionarmos em nossa aplicação. Spring MVC vem junto com as bibliotecas do framework Spring que podemos encontrar no site: https://spring.io/
+	Aqui é possível encontrar diversas documentações e tutoriais, além dos JARs do projeto.
+
+	1. Uma vez que adicionarmos o JARs do Spring MVC em nosso projeto dentro do diretório WEB-INF/lib, precisamos declarar um Servlet ( caso utilizemos ) que fará o papel de Front Controller da nossa aplicação, recebendo as requisições e as enviando às lógicas corretas.
+

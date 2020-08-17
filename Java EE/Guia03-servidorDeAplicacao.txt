@@ -1,0 +1,23 @@
+Java EE, Servidor de aplicação
+
+O Java EE é apenas uma especificação detalhando quais especificações fazem parte dele. Para usa-las é necessário fazer download de uma implementação dessas especificações. 
+
+Existem diversas implementações. Já que esse software tem papel de "servir" sua aplicação para auxilia-la com serviços de infraestrutura, esse software ganha o nome de servidor de aplicação.
+
+A Sun/Oracle por exemplo, desenvolve uma dessas implementações, O Glassfish que é open source e gratuito.
+
+O JBoss é um dos lideres do mercado e tem a vantagem de ser gratuito e open source.
+
+Alguns softwares implementam apenas uma parte dessas especificações do Java, exemplo:
+	- Apache Tomcat, que implementa JSP e Servlets ), logo não é totalmente correto chama-lo de servidor de aplicação.
+
+	A partir do Java EE 6 existe o termo "application server web profile", para poder se referenciar a servidores que não oferecem tudo, mas um grupo menor de especificações, consideradas essenciais para o desenvolvimento Web.
+
+Exemplo de Servidores de aplicação mais conhecidos até então:
+	- Oracle/Sun, GlassFish Server Open Source;
+	- RedHat, JBoss Application Server;
+	- Apache, Apache Geronimo ( Não Certificado );
+	- Oracle/BEA, Oracle WebLogic Server;
+	- IBM, IBM WebSphere Application Server;
+	- SAP, SAP NetWeaver Application Server ou SAP Web Application Server;
+	

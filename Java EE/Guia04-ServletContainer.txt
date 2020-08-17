@@ -1,0 +1,13 @@
+Java EE, Servlet Container:
+	O Java EE possui várias especificações, entre elas, algumas específicas para lidar com o desenvolvimento de uma aplicação Web:
+	- Servlet;
+	- JSP;
+	- JSTL;
+	- JSF;
+
+Um Servlet Container é um servidor que suporta essas funcionalidades listadas acima, mas não necessariamente o Java EE Web Profile nem o Java EE Completo. É indicado a quem não precisa de tudo do Java EE e está interessado apenas na parte Web ( grande parte das aplicações de médio porte se encaixam nessa categoria ).
+
+Alguns exemplos de Servlet Containers do Mercado:
+	- Apache Tomcat;
+	- Jetty;
+	
