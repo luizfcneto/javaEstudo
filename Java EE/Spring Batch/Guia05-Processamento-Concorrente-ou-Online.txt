@@ -1,0 +1,10 @@
+Spring Batch - Processamento concorrente ou on-line:
+	
+	Processamento de dados de aplicações batch que conseguem simultaneamente ser atualizadas por usuário online que não devem travar ( lockar ) qualquer dado ( tanto no banco de dados quanto nos arquivos ) que pode ser exigido por usuários online por poucos segundos. As atualizações devem também ser commitadas para o banco de dados no final de cada transação. Isso minimiza a porção de dados que não são acessíveis para outros processos e o tempo decorrido em que os dados estão indisponíveis. 
+
+	Outra opção que minimiza o locking ( travamento ) físico é ter um travamento ( locking ) lógico a nível de linha implementada junto com o Pattern de Locking Otimista ( Optimistic Locking Pattern ) ou o Pattern de locking pessimista ( Pessimistic Locking Pattern ).
+
+	- Optimist Pattern Locking:
+		
+
+	- Pessimist Pattern Locking:

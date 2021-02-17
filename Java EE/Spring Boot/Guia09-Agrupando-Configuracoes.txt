@@ -1,0 +1,19 @@
+O cliente liga novamente e solicita uma nova mudança. Agora ele nos pede para que a aplicação seja acessada pela porta 9000 do servidor, e não pela 8080 padrão do Jetty ou Tomcat. E agora?
+
+O Spring mais uma vez nos fornece estas e outras configurações de forma simplificada e prática de realizar. Muitas destas configurações que são tidas como propriedades da aplicação podem ser configuradas em um arquivo chamado application.properties ou application.yml que deve estar dentro da pasta resources.
+
+Uma lista de configurações pode ser encontrada no apêndice da documentação. A que nos interessa no momento é a server.port, onde podemos definir que a porta de acesso para a aplicação agora será a 9000.
+
+Além de configurarmos a porta padrão do servidor de aplicação, vamos aproveitar para mover as configurações de banco de dados para o arquivo properties também. Assim teremos todas as configurações centralizadas neste mesmo arquivo. Veja como ficou o arquivo application.properties
+
+# Server
+server.port=9000
+
+# Database
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost/springboot_listavip
+spring.datasource.username=root
+spring.datasource.password=root
+Existem diversas outras opções para configurar. Explore-as.
+
+

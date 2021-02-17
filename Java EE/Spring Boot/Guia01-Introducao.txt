@@ -1,0 +1,7 @@
+Pré Requisitos para Spring Boot:
+    - Conhecimentos sobre Spring IOC ( O core do Spring );
+    - Maven;
+    - JPA
+
+Metodologia do curso:
+    Migrar uma aplicação antiga construida com Servlets e JDBC para uma aplicação nova, usando Spring Boot e todos os seus starters. Geraremos até o fim do curso o Fatjar ( aplicação inteira em um único JAR ).

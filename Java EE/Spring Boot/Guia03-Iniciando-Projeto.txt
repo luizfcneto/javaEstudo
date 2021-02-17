@@ -1,0 +1,69 @@
+Para utilizar o Spring Boot:
+    1. Devemos criar uma aplicação simples projeto Maven
+        1.1 Nos camos de criação do projeto Maven preencher o checkbox ( aplicação simples )
+        1.2 Artefato: é o nome da aplicação que iremos fazer ( nosso exemplo: listavip )
+            preecnher GroupId: br.com.alura.listavip
+            preencher ArtifactId: listavip ( nome do projeto )
+        1.3 Finalizar.
+
+    2. Após criar Projeto simples Maven inserir as dependencias do Spring Boot no arquivo pom.xml 
+        2.1 No site do Spring você pode visualizar melhor como cada dependencia do Spring funciona e como adiciona-lo ao seu projeto, nesse site há também a possibilidade de gerar um pacote do projeto com todas as dependencias que você quiser, inclusive escolhendo a versão do java do projeto.
+        Acesse o site especifico da dependencia Spring Boot: https://spring.io/guides/gs/spring-boot/
+        Acesse o site de criação do pacote do projeto com dependencias: https://start.spring.io/
+
+    3. Caso de algum problema de compilação no projeto, utilize os comandos: maven clean install 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

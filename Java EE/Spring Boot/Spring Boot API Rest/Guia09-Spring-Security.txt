@@ -1,0 +1,27 @@
+- Para utilizar o módulo do Spring Security, devemos adicioná-lo como dependência do projeto no arquivo pom.xml;
+
+- Para habilitar e configurar o controle de autenticação e autorização do projeto, devemos criar uma classe e anotá-la com @Configuration e @EnableWebSecurity;
+
+- Para liberar acesso a algum endpoint da nossa API, devemos chamar o método http.authorizeRequests().antMatchers().permitAll() dentro do método configure(HttpSecurity http), que está na classe SecurityConfigurations;
+
+- O método anyRequest().authenticated() indica ao Spring Security para bloquear todos os endpoints que não foram liberados anteriormente com o método permitAll();
+
+- Para implementar o controle de autenticação na API, devemos implementar a interface UserDetails na classe Usuario e também implementar a interface GrantedAuthority na classe Perfil;
+
+- Para o Spring Security gerar automaticamente um formulário de login, devemos chamar o método and().formLogin(), dentro do método configure(HttpSecurity http), que está na classe SecurityConfigurations;
+
+- A lógica de autenticação, que consulta o usuário no banco de dados, deve implementar a interface UserDetailsService;
+
+- Devemos indicar ao Spring Security qual o algoritmo de hashing de senha que utilizaremos na API, chamando o método passwordEncoder(), dentro do método configure(AuthenticationManagerBuilder auth), que está na classe SecurityConfigurations.
+
+Como funciona a parte de segurança? Só preciso da dependência. O próximo passo seria configurar. Lembra que em um projeto com Spring Boot fazemos as configurações no application.properties. Só que como essa parte de segurança é um pouco complicada, temos muitas configurações, muita coisa dinâmica, não vamos utilizar o application.properties. Essa parte de segurança fazemos toda via classe Java.
+
+Eu vou precisar criar uma classe onde todas as configurações de segurança estarão. Vou criar uma nova classe, colocar no pacote security, criado dentro do pacote config, só para colocarmos coisas relacionadas a segurança dentro desse pacote. E vou criar uma classe chamada, por exemplo, securityConfigurations. A ideia é que dentro dessa classe estarão todas as configurações de segurança do nosso projeto.
+
+É uma classe Java, não tem nada a ver com Spring. Tenho que habilitar a parte do Spring security. Para fazer isso, fazemos na própria classe. Existe uma anotação chamada @EnableWebSecurity. Como essa é uma classe que tem configurações, precisamos colocar a anotação @Configuration. O Spring vai carregar e ler as configurações que estiverem dentro dessa classe.
+
+Além disso, vamos ter que herdar essa classe de outra classe do Spring chamada web security configurer adapter. Essa classe tem alguns métodos para fazer as configurações que vamos sobrescrever posteriormente.
+
+É isso. Nós colocamos a dependência do Spring security no projeto, criamos a classe, anotada com @EnableWebSecurity, com @Configuration. Dentro, depois, vamos colocar as configurações de segurança. Por enquanto está vazio, mas só de ter feiro isso já habilitamos a parte de segurança. Por padrão, o Spring bloqueia todo acesso à nossa API. Tudo está restrito até que eu faça a configuração e libere o que precisa ser liberado.
+
+Já podemos testar. No Postman, vou tentar disparar uma requisição para aquele nosso endpoint/tópicos, que era o endpoint que trazia uma lista com todos os tópicos do projeto. Ele não voltou a lista. Devolveu o código 401. Não tenho autorização. Ou seja, o Spring security está habilitado e o padrão dele é bloquear tudo. Com isso, terminamos nessa aula. No próximo vídeo vamos começar a fazer as configurações, para ensinar ao Spring o que é público e o que não é.

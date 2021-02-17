@@ -1,0 +1,110 @@
+- Em uma API Rest, não é uma boa prática utilizar autenticação com o uso de session;
+
+- Uma das maneiras de fazer autenticação stateless é utilizando tokens JWT (Json Web Token);
+
+- Para utilizar JWT na API, devemos adicionar a dependência da biblioteca jjwt no arquivo pom.xml do projeto;
+
+- Para configurar a autenticação stateless no Spring Security, devemos utilizar o método sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+- Para disparar manualmente o processo de autenticação no Spring Security, devemos utilizar a classe AuthenticationManager;
+
+- Para poder injetar o AuthenticationManager no controller, devemos criar um método anotado com @Bean, na classe SecurityConfigurations, que retorna uma chamada ao método super.authenticationManager();
+
+- Para criar o token JWT, devemos utilizar a classe Jwts;
+
+- O token tem um período de expiração, que pode ser definida no arquivo application.properties;
+
+- Para injetar uma propriedade do arquivo application.properties, devemos utilizar a anotação @Value.
+
+Na última aula, nós aprendemos sobre o Spring security, como proteger nossa API REST liberando endpoints e em outros exigindo autenticação. Porém, a autenticação que fizemos foi a tradicional, com usuário e senha, e o servidor, sempre que o usuário efetua login, cria uma sessão para guardar essas informações. Mas isso não é uma boa prática no modelo REST. O ideal é que a nossa autenticação seja stateless. Se vocês lembram, no curso anterior tivemos uma discussão sobre o modelo REST, e uma das características desse modelo é que toda a comunicação seja de modelo stateless. Ou seja, o cliente dispara uma requisição, leva todas as informações necessárias, o servidor processa, executa o que tem que executar, devolve a resposta e acabou.
+
+Eu tenho um slide mostrando essa ideia da autenticação via session. Em uma aplicação web tradicional, esse é o modelo utilizado. Toda vez que o usuário vai se autenticar no sistema, ele entra no formulário de login, digita o e-mail, a senha, quando faz o login o sistema cria uma sessão e nessa session ele armazena as informações do usuário. Para o servidor conseguir diferenciar um do outro, cada sessão tem id único. Em uma aplicação Java, essa sessão é chamada de jsessionid.
+
+Esse id é devolvido como resposta para o navegador, no formato de um cookie. O navegador armazena isso em um cookie, armazena o id da sessão. Nas próximas requisições que esse usuário disparar nesse navegador, o browser automaticamente envia esse parâmetro como um cookie. Quando chega uma requisição para o servidor, ele verifica se está vindo um cookie Jsessionid. Se estiver, ele recupera o id, com os dados.
+
+Dentro da sessão tem as informações. Isso vai contra um dos princípios do REST, que é de ser stateless. Nesse modelo, para cada usuário que estiver logado na aplicação vou ter um espaço na memória armazenando as informações. Isso consome espaço de memória, e se o servidor cair vou perder todas as sessões. Se eu quiser ter escalabilidade, se eu quiser ter um balanceamento de carga com múltiplos servidores, eu teria problema de compartilhamento.
+
+No modelo REST o ideal é trabalhar com a autenticação de maneira stateless. Com o Spring security é possível fazer isso. Conseguimos explicar para o Spring que não é para ele criar a sessão, que toda vez que o usuário se logar vou fazer a lógica de autenticação, mas não é para criar uma session. Só que aí, nas próximas requisições que os clientes dispararem, o servidor não sabe se está logado ou não, porque não tem nada armazenado. O cliente vai ter que mandar alguma informação dizendo quem é ele, se ele está logado, se tem permissão para acessar. Isso geralmente é feito via tokens. O pessoal costuma usar a especificação JSON web token para fazer esse tipo de autenticação. Ou seja, a cada requisição, o cliente vai mandar um token identificando quem é o usuário que está disparando essa requisição, se ele tem permissão para disparar.
+
+Nos próximos vídeos vamos aprender como utilizar o JSON web token, uma aplicação com Java utilizando Spring Boot.
+________________________________________________________________________________
+
+Como já discutimos no último vídeo, uma das principais características do modelo REST é que precisamos fazer a comunicação de maneira stateless. Nossa API não está seguindo esse princípio, por conta da autenticação. Estamos usando a autenticação da maneira tradicional com uso de sessão. Toda vez que um usuário se autentica, criamos uma sessão, que nada mais é que um espaço na memória onde estou guardando estado. Isso é ruim, porque se eu tiver zilhões de usuários para cada um vou ter que ter espaço na memória para guardar os dados de autenticação.
+
+Na aula de hoje vamos aprender a como não utilizar sessão, e fazer essa parte de autenticação de maneira stateless, seguindo as boas práticas do modelo REST. Para fazer isso, vamos utilizar o JSON web token, uma tecnologia para geração de tokens e autenticação de maneira stateless.
+
+Para começar, precisamos usar alguma biblioteca em Java que siga esse modelo do JSON web token. Vamos utilizar uma biblioteca chamada jjwt. O primeiro passo é adicionar essa dependência no nosso projeto.
+
+O group Id agora vai ser io.jsonwebtoken, e o artifact é jjwt. Como essa é uma dependência que não vem do Spring Boot, também vamos precisar declarar a versão. No nosso caso, vai ser a 0.9.1. Eu recomendo você a usar essa versão para garantir que não vai dar problemas.
+
+Já com a biblioteca no projeto, precisamos configurar a parte de segurança, naquela classe securityConfigurations, para informar para o Spring security que não vamos mais fazer autenticação usando sessão, mas sim autenticação de maneira stateless. Isso fazemos no método configure, onde estamos configurando as URLs. Embaixo, depois que configuramos as duas URLs e disse que todas as outras precisam estar autenticadas, vamos tirar a parte de and().formLogin(). Não vamos mais usar o formulário de login tradicional, porque senão ele vai criar sessão.
+
+Como estamos fazendo autenticação via token, via JSON, precisamos fazer outra configuração. Precisamos chamar o método csrf.disable. Csrf é uma abreviação para cross-site request forgery, que é um tipo de ataque hacker que acontece em aplicações web. Como vamos fazer autenticação via token, automaticamente nossa API está livre desse tipo de ataque. Nós vamos desabilitar isso para o Spring security não fazer a validação do token do csrf.
+
+Na sequência, sessionManagement. Vamos chamar aqui um método para dizer que não queremos usar sessão. Nós passamos como parâmetro essionCreationPolicy.STATELESS. Com isso, aviso para o Spring security que no nosso projeto, quando eu fizer autenticação, não é para criar sessão, porque vamos usar token.
+
+Mas tem uma desvantagem. Como apagamos aquela linha do formLogin, a partir de agora não temos mais um formulário de login gerado pelo Spring. Isso faz sentido porque as páginas da nossa aplicação não vão ficar na API backend. Vão ficar na aplicação client no frontend. O formulário de login é o cliente que vai fornecer. Ele só vai chamar nossa API passando os dados de login e senha. Só que além de perder o formulário, também perdemos o controller, que fazia a parte de autenticação. Vamos ter que criar um.
+
+Vamos criar uma nova classe e chamar de AutenticacaoController. Esse é o controller onde vai estar a lógica de autenticação. Para dizer que é um controller do Spring, coloco o @RestController e @RequestMapping. Precisamos configurar qual vai ser a url que esse controller vai responder. Vou colocar /auth. Se chegar alguma requisição para /auth, o Spring sabe que é para chamar esse controller, porque é o endereço para autenticação.
+
+Preciso ter um método onde vai ter a lógica de autenticação. Vou criar um método public que devolve o ResponseEntity, vou chamar o método de autenticar. Depois vemos que o vamos receber de parâmetro. E esse método vai ser chamado se a requisição for /auth, e via método @PostMapping. Como é autenticação, estou recendo parâmetros de usuário e senha, preciso que seja via método post.
+
+Esse método vai ser chamado pelo cliente quando ele solicitar os dados de login e senha. A aplicação cliente tem que configurar para chamar esse endereço /auth, a requisição tem que ser via método post, e no corpo da requisição ele tem que mandar o e-mail e a senha. Precisamos receber então o e-mail e a senha. Também quero validar. Vamos fazer validação via bin validação, para garantir que está vindo e-mail e senha. Mas lembre-se que não vou receber os dados soltos e não vou receber uma classe de domínio. Vou receber um form, seguindo o padrão dto.
+
+Seguindo aquele padrão, os dados que chegam do cliente eu recebo numa classe form. Não tem uma classe loginform, preciso criar. Dentro, vou ter só dois atributos, string e-mail e string senha. Quando o cliente fizer a chamada para a nossa API vai ter que mandar dois parâmetros no formato JSON, o e-mail e a senha.
+
+Precisa gerar os setters. E está pronta a lógica para gerar o form. Voltando para o meu controller, o cliente vai chamar /auth via método post, vai mandar um JSON com e-mail e senha, que vou receber dentro do form. Nesse primeiro momento, só para não ficar muita coisa, ainda não vou fazer a geração do token. Só vou fazer um system out para saber se está chegando a senha e o e-mail corretos.
+
+Preciso retornar alguma coisa. Então, ResponseEntity.ok.build. Só para testar se está ok. A ideia é que no meio eu vou precisar pegar o e-mail e a senha, autenticar no sistema, se estiver tudo ok, gero o token. Mas essa parte vamos fazer depois.
+
+Vamos testar se essa parte está funcionando. Vou rodar meu projeto. No Postman, vou mandar o JSON. Disparando a requisição, voltou o 403, porque esqueci de liberar o /auth. Lembre-se que precisamos liberar todas as URLs novas do projeto.
+
+Testando novamente, veio ok. Já criei esse novo endpoint para fazer autenticação, e criamos o controller que vai responder esse endpoint. Tudo funcionou certinho. No próximo vídeo temos que fazer a autenticação. Temos que pegar esse e-mail e essa senha, autenticar no sistema, gerar o token e devolver como resposta.
+
+
+Já implementamos o controller com a parte de autenticação, que recebe os dados de autenticação de usuário e senha. O próximo passo é autenticar no Spring e fazer a geração do token. Como não estamos mais usando aquele formulário do Spring, que já tinha um controller que fazia a chamada para a parte de autenticação, vamos ter que fazer a chamada manualmente.
+
+Para fazer uma autenticação de maneira programática, manualmente, no Spring security, vamos precisar de uma classe chamada authentication manager. Eu preciso injetar no nosso controller. Vou declarar um atributo que vai ser injetado, do tipo authenticationManager. E vou chamar o atributo de authManager.
+
+Porém, tem um pequeno detalhe. Essa classe é do Spring, mas ele não consegue fazer a injeção de dependências dela automaticamente, a não ser que nós configuremos isso. Por algum motivo, ela não vem configurada. Podemos fazer isso na nossa classe SecurityConfiguration. Para a nossa sorte, na classe que estamos herdando já tem um método que sabe criar o authenticationManager. Basta sobrescrevermos esse método.
+
+A única coisa que vamos precisar fazer é colocar @Bean em cima do método, porque aí o Spring sabe que esse método devolve o authenticationManager e conseguimos injetar no nosso controller. Vou salvar e voltar para o controller.
+
+O próximo passo é pegar no nosso método o authManager e chamar o método authenticate, que vai fazer a autenticação. Para fazer a autenticação, preciso passar para ele os dados de login. Só que não posso passar o loginform ou a senha soltos. O método authenticate recebe um objeto específico. Na linha de cima vamos precisar criar esse objeto. É um objeto do tipo userNamePasswordAuthenticationToken. Vou chamar de dadosLogin. Tenho que dar new nesse objeto passando para ele o login e a senha. Para não deixar isso no controller, vamos fazer aquele esquema que já tínhamos feito no tópico controller. Vamos pegar o próprio form e criar um método converter.
+
+Var dar um erro porque não tem o método converter. Vou pedir para o Eclipse criar para mim. Ele recebe como parâmetro o e-mail e a senha. Essa é a classe que o Spring precisa para o authenticationManager. Vou voltar para o controller, agora o authenticate compila, e esse método devolve um objeto do tipo authentication.
+
+Quando o Spring chamar essa linha, do authManager.authenticate, o Spring vai olhar as configurações que fizemos e ele sabe que é para chamar a classe authentication services, que chama o usuário repository para consultar os dados do banco de dados. Se der certo, ele vem para a linha de baixo. Se der errado, vai dar um exception. Se der exception, não quero devolver ok ou erro 500. Quero devolver erro400.
+
+Eu vou fazer um tratamento, um try catch, vou mover as duas linhas para dentro do try. Tenta fazer a autenticação. Se deu certo, devolve ok. Só que aí não vai ser exception, vai ser authenticationException. Se der erro, retorne badRequest. Com isso já implementei a parte de autenticação. O cliente vai mandar o usuário e a senha, eu chamo o authenticationManager para ele disparar o processo de autenticação. Se estiver tudo ok, ele vai devolver o ok. Senão, vai cair no catch.
+
+Só que eu não quero devolver um ok vazio. Quero devolver o token. Antes de devolver o ok, preciso fazer a geração do token, e vou guardá-lo em uma string. Para gerar o token é que vamos usar a biblioteca JWT, que até então só tínhamos colocado no projeto e não utilizado.
+
+Mas para não deixar esse código solto, vamos isolar em uma classe service. Vamos criar uma classe chamada TokenService e vamos ter o método gerar token. Na hora de gerar o token vou precisar identificar quem é o usuário, para qual usuário pertence aquele token. Então, nesse método, vou passar o authentication como parâmetro.
+
+Dá erro de compilação porque não existe essa variável. Eu vou criar mais um atributo no meu controller do tipo TokenService. Eu quero que o Spring injete para mim. Só que essa classe não existe, vou pedir para ele criar para mim e vou jogar no pacote configSecurity. Nesse pacote vai ter essa classe, que vai ser um service.
+
+Voltando para o meu controller, dá erro porque não existe esse método. Vou pedir para ele gerar para mim. Ele vai criar. E aí vou colocar a API do JWT para fazer a geração do token. Ele tem um método que cria um objeto builder onde posso setar informações para ele construir o token.
+
+Precisamos acertar alguma coisas. A primeira coisa vai ser o issuer. Quem é que está gerando o token. Vou colocar que foi a API do fórum da Alura, porque aí o cliente consegue identificar quem foi que fez a geração.
+
+Outra coisa que preciso setar é o usuário, quem é o dono desse token, quem é o usuário autenticado a quem esse token pertence. E tenho que passar uma string que identifique unicamente meu usuário.
+
+Lembra que esse método eu passei como parâmetro authentication? Esse authentication tem um método chamado getPrincipal para conseguirmos recuperar o usuário que está logado. Eu vou jogá-lo em uma variável usuário, que vou chamar de logado. Vai dar um erro de compilação, porque o getPrincipal devolve um object, então tenho que fazer um cast para usuário.
+
+No subject, vou colocar logado.getId e vou passar o id. Mas o id precisa que seja string. Também preciso dizer qual foi a data de geração do token. Quando ele foi concedido. E ele trabalha usando a API de datas antigas do Java, então ele está esperando um date. Eu vou criar uma variável ali em cima de date e vou importar do Java.
+
+O token também tem uma data de validação, onde ele vai expirar, igual a sessão tradicional, para não ficar infinito, porque isso seria um risco de segurança. E tenho que passar uma data. Eu poderia pegar a data hoje, somar com trinta minutos, mas esse tempo, para não ficar no código, vou injetar em uma propriedade do application.properties chamada fórum.jwt.expiration= e passei um tempo em milissegundos. Coloquei um dia, só para ficar mais fácil no teste. Na prática, o ideal é que o tempo seja menor.
+
+Tem uma senha também que depois vou mostrar onde vamos utilizar. Voltando ao TokenService. Tendo essa propriedade, como injetar? Vou declarar um atributo. Para injetar não vai ser um Autowired, porque ele procura um bean que está configurado, e no caso é uma string. Para injetar coisas, parâmetros do Application.properties, usamos a anotação @Value, e ela recebe como parâmetro o nome da propriedade.
+
+O Spring vai no application.properties, vai ver quem é a propriedade, pegar o valor dela e injetar aqui. Já vou aproveitar e injetar aquela senha. Vou jogar em um atributo chamado secret.
+
+A data de expiração não é o expiration, porque o expiration é o tempo em milissegundos. Tenho que pegar aquele tempo e somar com a data atual. Então, vou criar outro date. Posso passar como parâmetro hoje.getTime, para pegar os milissegundos da variável hoje, e somar com a variável expiration, porque aí ele vai fazer a soma dos dois milissegundos e criar a nova data. É justamente esse data expiração que vou passar como parâmetro.
+
+A última coisa que precisamos setar é: tem um método chamado signwith. Pela especificação JSON webtoken, o token tem que ser criptografado. Preciso dizer para ele quem é o algoritmo de criptografia e a senha da minha aplicação, que é usada para fazer a assinatura e gerar o REST da criptografia do token. É aqui que vou injetar o secret, que está no application.properties. A ideia é pegar um programa que gera uma string aleatória gigantesca e usar como senha. Para não ficar isso no código, podemos colocar no application.properties.
+
+Só preciso dizer qual é o algoritmo, e aí existe a classe signatureAlgorithm.HS256. No final, um compact para ele compactar e transformar isso em uma string. Ele dá um erro porque está fazendo operações com o date, da API de datas do Java antigo, mas esse é o jeito mais simples, não vai ter nenhum problema.
+
+Terminei. Consegui fazer a lógica para gerar o token. Para testar, vamos no controller. Já chamei o service e mandei ele criar um token. Vou dar um system out só para ver se está gerando o token certo. Para testar, vou usar o Postman. Vou disparar a requisição POST. Deu algum erro no nosso projeto na hora de pegar a data.
+

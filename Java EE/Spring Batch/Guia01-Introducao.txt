@@ -1,0 +1,98 @@
+Spring Batch:
+	Introdução:
+		Muitas aplicações com dominios corporativos necessitam de processamento em massa para realizar operações de negócios em ambientes críticos. Essas operações de negócios incluem:
+
+			- Automatização, processamento complexo de larga escala ( com grande volume de informação ) que são eficientemente processados sem interação do usuário. Essas operações são tipicamente incluidas em eventos baseados em tempos ( Como calculos de fim de mes, avisos ou correspondências );
+
+			- Aplicações periódicas de regras de negócio complexas processadas repetitivamente entre grandes bases de dados ( ex: Benefício de seguro, ou ajustes de taxas );
+		
+			- Integração de informações recebidas por outros sistemas de forma interna ou externa que normalmente necessitam formatação, validação, e processamento de maneira transacional no sistema de registro. Processamento batch é usado para processar bilhões de transações todos os dias para empresas.
+
+		Spring Batch é um framework leve e compreensivo projetado para habilitar o desenvolvimento de aplicações batch ( jobs ) robustos vitais para operações diárias para sistemas empresariais. Ele se baseia nas caracteristicas do framework Spring ( ex: produtividade, baseado em abordagem de desenvolvimento POJO e facilidade de uso geral ).
+
+		Spring Batch não é um framework de agendamento. Existem agendadores bons como ( Quartz, Tivoli, Control-M, etc ). Disponível tanto de forma comercial, quanto open source. Ele deve ser utilizado juntamente com um desses Agendadores e não substitui-los.
+		
+		Spring Batch fornece funções reutilizaveis que são excenciais para processamento de larga quantidade de registros, incluindo loggin/tracing, gerenciamento transacional, estatísticas de processamento job, reiniciar ( restart ) jobs, avançar jobs e gerenciamento de recursos. Ele também proporciona mais serviços técnicos avaçados e características ( features ) que permitem técnicas de otimização e particionamento de grandes quantidades e de alta performance em jobs batch.
+		
+		Spring Batch deve ser usado nos seguintes casos de uso simples:
+			1. Leitura de um arquivo de um banco de dados 
+			2. Executar procedimentos armazenados 
+		
+			Assim como em casos de usos mais complexos e de grande volume:
+				
+				3. Modificando grandes volumes de dados entre databases;
+				4. Transformando-os
+				5. Etc
+			
+	Resumidamente Cenários Básicos para utilização do Spring Batch:
+		1. Leitura de grande número de registros de banco de dados, arquivos ou filas;
+		2. Processamento de dados de alguma forma ( você vai desenvolver )
+		3. Grava de volta dados de uma forma modificada ( você vai desenvolver )
+		
+	Spring Batch automatiza essas iteraões basicas de batch, fornecendo capacidade de processamento similar de transações como um set, normalmente em ambientes offline sem interação do usuário. 
+		
+	Jobs batch são a maior parte de projetos de TI. Spring Batch é um framework opensource, leve, que proporciona funcionalidades para lidar com processamentos robustos de larga escala e complexos de forma otimizada.
+
+	
+	Resumidamente Cenários Comerciais para utilização do Spring Batch:
+		1. Modificar e salvar ( tornar permanente ) processos batch periodicamente;
+		2. Processamento batch concocorrente; ( Processamento de jobs em paralelo )
+		3. Processamento orientado para mensagens comerciais em etapas;
+		4. Processamento em lote massivamente paralelo;
+		5. Reiniciamento manual ou agendado após falha;
+		6. Processamento sequencial dependendo dos passos ( com extensões batches dirigidas toworkflow [ toworkflow-driven ] );
+		7. Processamento parcial ( pulando registros, ex: em rollback )
+		8. Transação de lote inteiro ( Whole-batch ) para casos de lotes ( batchs ) pequenos ou procedimentos / scripts existentes
+
+	Objetivos Técnicos:
+		- Desenvolvedores batch utilizam o modelo de programação Spring, concentrando na lógica da regra de negócios e permitindo que o framework tome conta da infraestrutura;
+	
+		- Separação clara de conceitos entre infraestrutura, ambiente de execução batch e aplicação batch;
+		- Fornece serviços de execução básicos comuns como interfaces que todos os projetos podem implementar;
+
+		- Fornece implementações simples e padrões de interfaces de execução core que são utilizadas "fora da caixa";
+		
+		- Fácil de configurar, customizar, extender serviços aproveitando a estrutura de todas as camadas do framework spring;
+		
+		- Todos os serviços existentes de core ( principais ) devem ser fáceis para substituição ou extensão, sem nenhum impacto para a camada de infraestrutura;
+
+
+		- Fornece um modelo simples de deployment, com arquitetura JARs completamente separada da aplicação principal, utilizando Maven.
+
+
+Link documentação referência: https://docs.spring.io/spring-batch/docs/current/reference/html/spring-batch-intro.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

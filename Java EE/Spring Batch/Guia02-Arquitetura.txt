@@ -1,0 +1,19 @@
+Spring Batch - Arquitetura:
+	Spring Batch foi projetado extendisbilidade e um grupo diversificado de usuários finais em mente.
+	A figura Spring-Batch-Arquitetura-Camadas0.png ilustra as camadas de arquiteturas que suportam a extendisibilidade e o fácil uso de usuarios finais de desenvolvimento.
+
+	A arquitetura de camadas ilustra três principais componentes High-level;
+		1. Aplicação:
+			- Contém todos os jobs batch e códigos custmoizados escritos por desenvolvedores utilizando Spring Batch.	
+
+		2. Batch Core:
+			- Cotém o núcleo ( principal / core ) de classes de execução necessárias para lançar e controlar jobs Batch. Ele inclui implementações para:
+				2.0: "JobLaucher";
+				2.1: "Job";
+				2.2: "Step";
+
+		Obs: Tanto as camadas de aplicação quanto Core são construidas no topo de uma infraestrutura comum ( common ). Essa infraestrutura contém readers ( commom ), writers ( commom ) e serviços ( ex: "RetryTemplate" ), que são utilizadas tanto pelos desenvolvedores da Aplicação ( readers e writers como "ItemReader" e "ItemWriter" ) e o core framework ( "retry", que é de sua própria biblioteca ) 
+
+		3. Infraestrutura Batch 
+
+

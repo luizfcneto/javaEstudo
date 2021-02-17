@@ -1,0 +1,15 @@
+Uma atividade comum é a de acompanhamento da saúde da aplicação após ela ter sido implantada e estar em produção. Como podemos verificar se a aplicação está funcionando normalmente? Se o banco de dados está online?
+
+Um projeto interessante que também é um starter do Spring é o Spring Actuator que fornece vários endpoints onde podemos verificar algumas informações em tempo de execução da aplicação. Para utiliza-lo primeiro temos que o adicionar no pom.xml
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+    <version>1.4.2.RELEASE</version>
+</dependency>
+Os endpoints podem ser vistos na própria documentação do Spring Actuator. Entre estes, podemos ver os Beans gerenciados pelo Spring usando o endereço da aplicação seguindo de /beans ou também ver a saúde da aplicação usando o /health.
+
+Tenha em mente que, o Spring Actuator é um RESTful Web Service. Isso quer dizer que todos os dados disponíveis por ele, estarão em formato de texto, que por padrão é JSON. Acessando o /health por exemplo, teremos:
+
+{"status":"UP","diskSpace":{"status":"UP","total":46310486016,"free":27349037056,"threshold":10485760},"db":{"status":"UP","database":"MySQL","hello":1}}
+Indicando o status da aplicação e do banco de dados, o consumo de espaço em disco. Algumas opções podem ser bem complicadas de ler, por isso pode ser necessário uma outra ferramenta que torne o JSON mais legível.

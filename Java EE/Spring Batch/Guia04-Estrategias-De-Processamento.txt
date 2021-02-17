@@ -1,0 +1,110 @@
+Spring Batch - Estrategias de Processamento:
+
+
+_________________________________Padrões de Construção de Blocos___________________________________
+	Para ajudar na Modelagem e implementação de sistemas Batch, construção de blocos e patterns de aplicações Batch básicas devem ser fornecidos para projetistas e programadores em forma de amostra ( esboço ) de estruturas gráficas e códigos de scripts. Quando começar a planejar um job batch, a lógica da regra de negócio deve ser decomposta em séries de passos que devem ser implementadas utilizando as lógicas padrões de construção de blocos a seguir:
+
+		1. Aplicações de Conversão: Para cada tipo de arquivo fornecido ou gerado por um sistema externo, a conversão da aplicação deve ser criada para converter os registros transacionais em formatos padrão necessários para o processamento. Esse tipo de aplicação batch consegue parcialmente ou inteieriamente consistir em módulos de utilitário de tradução ( pesquisar sobre serviços básicos batch Basic Batch Services para tradução );
+
+		2. Aplicações de validação: Assegura que todos os registros de Entrada/Saída estão corretos e consistentes. Validação é normalmente baseada em cabeçalhos de arquivos e trailers, checksums e algoritmos de validação, e cross-checks a nivel de registro;
+
+		3. Aplicações de Extração: Aplicações que leem uma quantia de registros de um banco de dados ou arquivo, seleciona registros baseados em regras pré-definidas, e escritas de registros em um arquivo de saida;
+
+		[ FOCO NESSE ]
+		4. Aplicações de Extração e Atualização: Aplicações que leem registros de um banco de dados ou arquivo de entrada e fazem mudanças no banco ou arquivo saída guiado pelo dado encontrado em cada registro de entrada;
+
+		[ FOCO NESSE ]
+		5. Aplicações de processamento e atualização: Aplicação que processa transações de Entrada de aplicações de extração ou validação. O processamento normalmente envolve leitura de banco de dados para obter dados necessários para o processamento, potencialmente atualizando o banco de dados e criando registros para processamento de saída;
+
+		6. Aplicações de Formato de Saída: Aplicações que leem um arquivo de entrada, reestrutura o dado desse registro de acordo com o padrão de formato estabelecido, e produz um arquivo de saída para visualização ou transmissão para outro programa ou sistema.
+
+_____________________________Passo/Step de Padrão de Utilitários___________________________________
+		OBS: Uma aplicação basica shell ( script ) deve ser fornecido para lógica da regra de negócio que não pode ser construida utilizando os blocos de construção mencionados acima.
+
+		Adicionando ao bloco de construção principal, cada aplicação deve usar um ou mais padrões de passos de utilidades, como: 
+
+			1. Sort ( Ordenação ): Um programa que lê o arquivo de entrada e gera um arquivo de saída onde os registros devem ser ordenados de acordo com um critério chave . Sorts ( Ordenadores ) são usualmente performaticos por padrão de sistemas de utilitarios.
+
+			2. Split ( Separador ): Um programa que lê um único arquivo e escreve cada registro em vários arquivos de saída baseado em um valor de um campo. Splits ( divisões ) podem ser personalidadas/customizadas ou realizadas por utilitários de sistema padrão orientadas por parâmetros
+
+			3. Merge ( Unir/Misturar ): Um programa que lê registros de múltiplos arquivos de entrada e geram um único arquivo de saída com dados combinados por eles. Merges podem ser personalizados/customizados ou realizadaos por utilitários de sistema padrão orientadas por parâmtros
+___________________________________Categorias de Entrada___________________________________________
+	Aplicações Batch podem ser categorizadas pelo recurso de entrada:
+		1. Aplicações orientadas por banco de dados: 
+			Aplicações que são orientadas por linhas ou valores retornados de um banco de dados
+
+		2. Aplicações orientadas por Arquivos:
+			Aplicações que são orientadas por registros ou valores de um arquivo
+
+		3. Aplicações orientadas por Mensagens[Fila]:
+			Aplicações que são orientadas por mensagens retornadas de uma fila de mensagens
+
+__________________________________Opções de Processamento Batch____________________________________
+	O fundamento de qualquer sistema batch é a estrutura de processamento. Fatores que afetam a estratégia incluem:
+		- Volume do sistema batch estimado;
+		- Concorrência com sistemas online ou outros sistemas batch;
+		- Batch disponível em janelas ( Note que com mais empresas querendo manter e executar sistemas 24 horas por 7 dias na semana, janelas limpas de batch estão desaparecendo. )	
+	
+	Ordem de opçõs de processamento Batch aumentando ordenado por complexidade de implementação:
+		1. Processamento Normal: 
+			processamento normal de uma janela batch em modo offline
+
+		2. Processamento concorrente:
+			processamento concorrente de batch ou processamento online
+			
+		3. Processamento paralelo:
+			Processamento paralelo de grande variedade de batchs executados ou jobs ao mesmo tempo;
+		
+		4. Processamento de Particionamento:
+			Processamento de múltiplas instancias do mesmo job ao mesmo tempo;
+
+		5. Processamento de combinação:
+			Processa uma combinação de opções predefinidas
+
+A seguir detalharemos as opções de processamento de forma mais detalhada. Vale lembrar que a estratégia de salvar e travar ( commit and locking ) adotada por processamentos batch depende do tipo de processamento realizado; E a estratégia online e travar ( online and locking ) também utilizam os mesmos princípios. Portanto a arquitetura batch não pode ser simplesmente uma reflexão tardia ao projetar uma arquitetura geral.
+
+A estratégia de travamento ( locking ) consegue ser utilizada apenas bloqueios ( locks ) em banco de dados normais, ou para implementar um serviço adicional personalizado na arquitetura. 
+
+O serviço de travamento ( locking ) deve seguir o travamento ( locking ) do banco de dados ( ex: armazenando informação necessária em uma tabela do bd ) e entregando ou negando permissões para aplicações requisitando uma operação no banco. Lógica de repetição também deve ser implementada pela arquitetura para evitar abortamento de jobs batch em caso de situação de travamento ( locking ).
+
+
+Para saber mais: https://docs.spring.io/spring-batch/docs/current/reference/html/spring-batch-intro.html#springBatchArchitecture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+		
+	

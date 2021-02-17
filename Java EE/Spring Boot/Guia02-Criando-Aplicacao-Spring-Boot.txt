@@ -1,0 +1,18 @@
+Aplicação que será migrada para Spring Boot:
+    1. Uma lista de convidados pode adicionar pessoas à listagem e convidá-las, ( ListaVIPs )
+    2. Logo ao clicar no botão para ver a lista de convidados, somos levados a uma outra página onde vemos a listagem de convidados e um formulário para adicionar mais convidados a lista.
+    3. Aplicação simples, permite adicionar convidados a uma lista e notifica estes convidados por e-mail.
+
+Para criar a aplicação de forma mais rápida possível, precisamos de uma ferramenta que nos auxilie. Onde a gnt não precise perder tempo configurando um servidor ou framework ORM que pode demorar horas. Por isso escolhemos o Spring Boot.
+
+O Spring Boot não tem uma tarefa específica. Ele é composto por "starters" que, de acordo com a necessiadade, adiciona-se ao projeto o "starter" necessário para atender determinado objetivo.
+
+Iniciando o Projeto:
+    1. Começamos criando a nova aplicação projeto Maven simples, adicionando apenas o nome do projeto e o pacote.
+
+    As imagens ilustram o passo-a-passo para criar um projeto Maven simples.
+
+    2. Após a criação do projeto Maven simples devemos abrir o arquivo pom.xml e adicionar as dependências do projeto. No nosso caso por enquanto Spring Boot.
+
+        - Encontramos informações sobre as dependências do Spring Boot no próprio site:
+            - https://spring.io/guides/gs/spring-boot/

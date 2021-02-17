@@ -1,0 +1,26 @@
+Spring Batch - Princípios Gerais e Guias:	
+	Os princípios chave, guia e considerações gerais a seguir devem ser considerados quando construimos uma solução Batch:
+		- Lembrar que a arquitetura batch normalmente afeta arquiteturas online e vice-versa. Projetar com ambdas arquiteturas e ambientes em mente utilizando construções "commom" para construir blocos quando possível;
+		
+		- Simplificar o máximo possível e evitar construir estruturas lógicas complexas em uma única aplicação Batch;
+		
+		- Manter o processamento e armazenamento dos dados fisicamente próximos ( em outras palavras manter seus dados onde seu processamento ocorre );
+
+		- Minimizar utilização de recursos do sistema, especialmente entrada/saida. Performar o máximo de operações possíveis internamente na memória;
+	
+		- Revisar aplicação de Entrada/Saida ( analisar afirmativas SQL ) para assegurar que entradas/saidas físicas desnecessárias serão evitadas. Em particular, as seguinte quatro "commom" falhas que devem ser tratadas:
+			1. Leitura de dados para cada transação enquanto a data poderia ser lida e cacheada ou mante-la armazenada;
+			
+			2. Releitura de dados para transações quando a data foi lida previamente na mesma transação;
+			
+			3. Causar varreduras desnecessárias de tabela ou índice;
+		
+			4. Não especificando valores chave na clausula "WHERE" de uma afirmativa SQL;
+
+		- Não fazer coisas duplicadas em uma execução Batch ( ex: se precisar de um sumario ( resumo ) de dados para fins de relatório, deverá ( se possível ) incrementar os totais armazenados quando os dados estiverem sendo processados inicialmente, para que seu aplicativo de relatório não precise reprocessar os mesmos dados )   
+
+		- Planejar e executar testes de stress o mais cedo possível em ambiente de produção com volumes de dados realistas da sua aplicação 
+
+		- Em grandes sistemas batch, fazer backup pode ser desafiador, especialmente se o sistema está executando simultaneamente com o online 24 hrs por dia 7 dias da semana. Backup de banco de dados são normalmente são bem cuidados em modelos online, mas backup de arquivos devem ser considerados igualmente importantes. Se o sistema depende de arquivos simples, os procedimentos de backup de arquivos não devem apenas ser implementados e documentados mas também testados regularmente.
+
+		-  

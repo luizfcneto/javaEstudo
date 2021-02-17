@@ -1,0 +1,31 @@
+O nosso cliente ligou e solicitou desta vez que trocássemos o servidor de aplicação do Lista VIPs de Tomcat para Jetty. E agora? Como faremos isso se utilizamos o Spring Boot para desenvolver a aplicação?
+
+O Spring Boot por padrão, trás o Tomcat pré-configurado para o projeto. Felizmente a troca é muito simples e a próprio documentação é clara sobre como fazer isso.
+
+Para acessar a documentação e ver como trocar Tomcat pelo Jetty clique aqui.
+
+Precisamos simplesmente adicionar uma exclusão na dependência do starter web, sendo esta, o starter do Tomcat e adicionar uma nova dependência, neste caso, do starter do Jetty. Assim teremos:
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>1.4.2.RELEASE</version>
+
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+    </exclusions>
+
+</dependency>
+
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jetty</artifactId>
+    <version>1.4.2.RELEASE</version>
+</dependency>
+
+Desta forma conseguimos trocar o Tomcat pelo Jetty sem muito trabalho. Muito prático.
+
+
